@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Sign in</h1>
+
+    <form id="login-form" aria-label="login form">
+      <label>
+        Email
+        <input type="email" id="email" required />
+      </label>
+
+      <label>
+        Password
+        <input type="password" id="password" required />
+      </label>
+
+      <button type="submit" id="login-button" disabled>
+        Sign in
+      </button>
+
+      <div id="error" class="error hidden" role="alert">
+        Invalid credentials
+      </div>
+    </form>
+  </main>
+
+  <script src="auth.js"></script>
+</body>
+</html>
