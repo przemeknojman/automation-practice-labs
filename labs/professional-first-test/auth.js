@@ -18,8 +18,9 @@ document.getElementById('login-form').addEventListener('submit', (e) => {
   // Simulated async auth
   setTimeout(() => {
     if (
-      emailInput.value === 'test@example.com' &&
-      passwordInput.value === 'Password123!'
+      (emailInput.value === 'admin@example.com' &&
+      passwordInput.value === 'Password123!') || (emailInput.value === 'pupil@example.com' &&
+      passwordInput.value === 'Password321!')
     ) {
       window.location.href = 'dashboard.html';
     } else {

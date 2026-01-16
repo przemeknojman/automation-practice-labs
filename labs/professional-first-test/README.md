@@ -11,10 +11,10 @@ The goal of this lab is **not** to practice Playwright syntax.
 
 The goal is to understand **what a professional automated test actually is**:
 
-- a test is **not a script**
-- a test expresses **business intent**
-- implementation details belong **outside** the test
-- the test should be readable even by non-automation people
+* a test is **not a script**
+* a test expresses **business intent**
+* implementation details belong **outside** the test
+* the test should be readable even by non-automation people
 
 This lab provides a **simple login → dashboard scenario** that you can use
 to practice writing tests that focus on **intent**, not UI mechanics.
@@ -23,10 +23,19 @@ to practice writing tests that focus on **intent**, not UI mechanics.
 
 You can access the application here:
 
- **Login page**  
+**Login page**  
 https://przemeknojman.github.io/automation-practice-labs/labs/professional-first-test/
 
 Valid credentials:
 
-Email: test@example.com
+Email: admin@example.com
 Password: Password123!
+
+## Prerequisites
+
+* Node.js installed
+* Playwright with TypeScript set up
+
+If you don’t have Playwright yet, follow the official installation guide:
+https://playwright.dev/docs/intro
+
