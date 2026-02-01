@@ -1,0 +1,229 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Selenium vs Playwright – Practice Labs</title>
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 6px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    h2 {
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10px;
+      margin-top: 60px;
+    }
+
+    .example {
+      margin-top: 30px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: #fafafa;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 16px;
+      cursor: pointer;
+    }
+
+    iframe {
+      width: 100%;
+      height: 160px;
+      border: 1px solid #ccc;
+      margin-top: 15px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li.user {
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+    }
+
+    .note {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>Selenium vs Playwright – Automation Practice Labs</h1>
+
+  <!-- 1. LOGIN FORM -->
+  <h2>1. Login Form (Basic Locators)</h2>
+
+  <div class="example">
+    <form>
+      <label for="username">Username</label>
+      <input id="username" type="text" />
+
+      <label for="password">Password</label>
+      <input id="password" type="password" />
+
+      <button id="login">Login</button>
+    </form>
+
+    <p class="note">
+      Used to demonstrate classic locators (id) vs semantic locators (label / role).
+    </p>
+  </div>
+
+  <!-- 2. WAITING -->
+  <h2>2. Waiting – Dynamic Element</h2>
+
+  <div class="example">
+    <button id="save" style="display:none;">Save</button>
+
+    <script>
+      setTimeout(() => {
+        document.getElementById("save").style.display = "block";
+      }, 3000);
+    </script>
+
+    <p class="note">
+      The button appears after 3 seconds.  
+      Selenium needs Explicit Wait.  
+      Playwright waits automatically before clicking.
+    </p>
+  </div>
+
+  <!-- 3. SHADOW DOM -->
+  <h2>3. Shadow DOM</h2>
+
+  <div class="example">
+    <custom-login></custom-login>
+
+    <script>
+      class CustomLogin extends HTMLElement {
+        constructor() {
+          super();
+          const shadow = this.attachShadow({ mode: 'open' });
+          shadow.innerHTML = `
+            <label>Username</label>
+            <input id="username" />
+            <button id="login">Login</button>
+          `;
+        }
+      }
+      customElements.define('custom-login', CustomLogin);
+    </script>
+
+    <p class="note">
+      Selenium requires JavaScriptExecutor to access Shadow DOM.  
+      Playwright supports it natively.
+    </p>
+  </div>
+
+  <!-- 4. IFRAMES -->
+  <h2>4. iFrames</h2>
+
+  <div class="example">
+    <iframe id="login-frame" srcdoc="
+      <html>
+        <body>
+          <label>Username</label>
+          <input id='username' />
+          <button id='login'>Login</button>
+        </body>
+      </html>
+    ">
+    </iframe>
+
+    <p class="note">
+      Selenium requires manual frame switching.  
+      Playwright works with iframes as a scoped locator.
+    </p>
+  </div>
+
+  <!-- 5. MULTIPLE ELEMENTS -->
+  <h2>5. Multiple Matching Elements (Strict Mode)</h2>
+
+  <div class="example">
+    <div class="user">
+      <span>John Smith</span>
+      <button>Delete</button>
+    </div>
+
+    <div class="user">
+      <span>John Smith</span>
+      <button>Delete</button>
+    </div>
+
+    <p class="note">
+      Selenium clicks the first matching element.  
+      Playwright throws strict mode violation and forces you to be precise.
+    </p>
+  </div>
+
+  <!-- 6. STALE ELEMENT -->
+  <h2>6. StaleElementReferenceException</h2>
+
+  <div class="example">
+    <ul id="users">
+      <li class="user">
+        <span class="name">John Smith</span>
+        <button class="delete" onclick="this.parentElement.remove()">Delete</button>
+      </li>
+    </ul>
+
+    <p class="note">
+      After clicking Delete, the DOM is re-rendered.  
+      Selenium WebElement becomes stale and throws
+      <strong>StaleElementReferenceException</strong>.
+    </p>
+
+    <p class="note">
+      Playwright uses Locators (DOM queries), not element snapshots,  
+      so it automatically re-finds elements and avoids this problem.
+    </p>
+  </div>
+
+</div>
+
+</body>
+</html>
