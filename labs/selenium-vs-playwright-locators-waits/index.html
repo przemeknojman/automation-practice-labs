@@ -201,29 +201,48 @@
   </div>
 
   <!-- 6. STALE ELEMENT -->
-  <h2>6. Stale Element Handling</h2>
+## 6. Stale Element Handling
 
-  <div class="example">
-    <ul id="users">
-      <li class="user">
-        <span class="name">John Smith</span>
-        <button class="delete" id="deleteBtn" onclick="this.parentElement.remove()">Delete</button>
-      </li>
-    </ul>
+<div class="example">
+  <ul id="users">
+    <li class="user">
+      <span class="name">John Smith</span>
+      <button class="delete" id="deleteBtn" onclick="deleteUser(this)">Delete</button>
+    </li>
+  </ul>
 
-    <p class="note">
-      After clicking Delete, the DOM is re-rendered.  
-      Selenium WebElement becomes stale and throws
-      <strong>StaleElementReferenceException</strong>.
-    </p>
+  <p class="note">
+    After clicking Delete, the DOM is re-rendered. Selenium WebElement becomes stale and throws
+    <strong>StaleElementReferenceException</strong>.
+  </p>
 
-    <p class="note">
-      Playwright uses Locators (DOM queries), not element snapshots,  
-      so it automatically re-finds elements and avoids this problem.
-    </p>
-  </div>
-
+  <p class="note">
+    Playwright uses Locators (DOM queries), not element snapshots, so it automatically re-finds elements and avoids this problem.
+  </p>
 </div>
+
+<script>
+function deleteUser(button) {
+  const li = button.parentElement;
+  const userName = li.querySelector('.name').textContent;
+
+  // remove user
+  li.remove();
+
+  // re‑render a new user with a delay so that locator refinding is visible
+  setTimeout(() => {
+    const ul = document.getElementById('users');
+
+    const newLi = document.createElement('li');
+    newLi.className = 'user';
+    newLi.innerHTML = `
+      <span class="name">${userName}</span>
+      <button class="delete" id="deleteBtn" onclick="deleteUser(this)">Delete</button>
+    `;
+    ul.appendChild(newLi);
+  }, 1000);
+}
+</script>
 
 </body>
 </html>
