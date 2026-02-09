@@ -113,27 +113,8 @@
     </p>
   </div>
 
-  <!-- 2. WAITING -->
-  <h2>2. Dynamic Waiting</h2>
-
-  <div class="example">
-    <button id="save" style="display:none;">Save</button>
-
-    <script>
-      setTimeout(() => {
-        document.getElementById("save").style.display = "block";
-      }, 3000);
-    </script>
-
-    <p class="note">
-      The button appears after 3 seconds.  
-      Selenium needs Explicit Wait.  
-      Playwright waits automatically before clicking.
-    </p>
-  </div>
-
-  <!-- 3. SHADOW DOM -->
-  <h2>3. Handling Shadow DOM</h2>
+  <!-- 2. SHADOW DOM -->
+  <h2>2. Handling Shadow DOM</h2>
 
   <div class="example">
     <custom-login></custom-login>
@@ -159,8 +140,8 @@
     </p>
   </div>
 
-  <!-- 4. IFRAMES -->
-  <h2>4. Handling iFrames</h2>
+  <!-- 3. IFRAMES -->
+  <h2>3. Handling iFrames</h2>
 
   <div class="example">
     <iframe id="login-frame" srcdoc="
@@ -180,8 +161,8 @@
     </p>
   </div>
 
-  <!-- 5. MULTIPLE ELEMENTS -->
-  <h2>5. Handling Multiple Matching Elements</h2>
+  <!-- 4. MULTIPLE ELEMENTS -->
+  <h2>4. Handling Multiple Matching Elements</h2>
 
   <div class="example">
     <div class="user">
@@ -200,8 +181,8 @@
     </p>
   </div>
 
-  <!-- 6. STALE ELEMENT -->
-<h2>6. Stale Element Handling</h2>
+  <!-- 5. STALE ELEMENT -->
+<h2>5. Stale Element Handling</h2>
 
 <div class="example">
   <ul id="users">
@@ -229,7 +210,7 @@ function deleteUser(button) {
   // remove user
   li.remove();
 
-  // re‑render a new user with a delay so that locator refinding is visible
+ 
   setTimeout(() => {
     const ul = document.getElementById('users');
 
@@ -243,6 +224,24 @@ function deleteUser(button) {
   }, 1000);
 }
 </script>
+<!-- 6. WAITING -->
+  <h2>6. Dynamic Waiting</h2>
+
+  <div class="example">
+    <button id="save" style="display:none;">Save</button>
+
+    <script>
+      setTimeout(() => {
+        document.getElementById("save").style.display = "block";
+      }, 3000);
+    </script>
+
+    <p class="note">
+      The button appears after 3 seconds.  
+      Selenium needs Explicit Wait.  
+      Playwright waits automatically before clicking.
+    </p>
+  </div>
 
 </body>
 </html>
