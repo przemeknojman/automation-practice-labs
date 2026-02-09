@@ -163,12 +163,13 @@
 
   <!-- 4. MULTIPLE ELEMENTS -->
   <h2>4. Handling Multiple Matching Elements</h2>
-  
-  
+
   <div class="example">
-  
-  <button style="display:none;>Delete</button>
-  
+    <div class="user">
+      <span>John Smith</span>
+      <button>Delete</button>
+    </div>
+
     <div class="user">
       <span>John Smith</span>
       <button>Delete</button>
@@ -209,7 +210,7 @@ function deleteUser(button) {
   // remove user
   li.remove();
 
- 
+  // re‑render a new user with a delay so that locator refinding is visible
   setTimeout(() => {
     const ul = document.getElementById('users');
 
@@ -224,7 +225,7 @@ function deleteUser(button) {
 }
 </script>
 <!-- 6. WAITING -->
-  <h2>6. Dynamic Waiting</h2>
+  <h2>. Dynamic Waiting</h2>
 
   <div class="example">
     <button id="save" style="display:none;">Save</button>
